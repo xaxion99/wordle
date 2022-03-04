@@ -3,9 +3,15 @@
 ########################################################################################################################
 import csv
 import numpy as np
+from datetime import datetime
 
 
 class Processor:
+    ####################################################################################################################
+    # Variables
+    ####################################################################################################################
+    responses = []
+
     ####################################################################################################################
     # Methods
     ####################################################################################################################
@@ -140,7 +146,6 @@ class Processor:
                         array.append(word)
         else:
             array = x
-        print(f'{len(array)} words left after Bs.')
         return array
 
     def check_g(self, t1, t2, x):
@@ -161,7 +166,6 @@ class Processor:
                             array.append(word)
         else:
             array = x
-        print(f'{len(array)} words left after Gs.')
         return array
 
     def check_y(self, t1, t2, x):
@@ -182,9 +186,56 @@ class Processor:
                             array.append(word)
         else:
             array = x
-        print(f'{len(array)} words left after Y.')
         return array
 
     def sorter(self, l_percentages, r=True):
         l_percentages = {k: v for k, v in sorted(l_percentages.items(), key=lambda item: item[1], reverse=r)}
         return l_percentages
+
+    # Function to create all Wordle input response permutations
+    def create_all_responses(self):
+        colors = ['B', 'Y', 'G']
+        for a in colors:
+            for b in colors:
+                for c in colors:
+                    for d in colors:
+                        for e in colors:
+                            string = a + b + c + d + e
+                            self.responses.append(string)
+        print(f'Processed {len(self.responses)} responses.')
+
+    ####################################################################################################################
+    # Function to check a given word against all possible responses
+    # N.B. This function will take quite some time to fully run through large amounts of words
+    ####################################################################################################################
+    def word_checker_callback(self, wsd, w):
+        start_time = datetime.now()
+        # array_of_dicts = []
+        limited_array = []
+        array_of_averages = []
+        count = 0
+        total = 0
+        for index, word in enumerate(w):
+            # if index < 100:
+            if 12000 <= index < 12478:  # 1000 takes about 1 hour to process
+                limited_array.append(word)
+                for r in self.responses:
+                    info = r
+                    temp1 = [char for char in word]
+                    temp2 = [char for char in info]
+                    x = self.exclude_b(temp1, temp2, wsd.keys())
+                    y = self.check_g(temp1, temp2, x)
+                    z = self.check_y(temp1, temp2, y)
+                    if len(z) > 0:
+                        count += 1
+                        total += len(z)
+                # dictionary = {self.responses[i]: array[i] for i in range(len(self.responses))}
+                # array_of_dicts.append(dictionary)
+                average = total / count
+                array_of_averages.append(average)
+                count = 0
+                total = 0
+        print(array_of_averages)
+        # word_averages_dict = {limited_array[i]: array_of_averages[i] for i in range(len(limited_array))}
+        # print(word_averages_dict)
+        print(datetime.now() - start_time)

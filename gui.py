@@ -342,8 +342,11 @@ class GUI:
             if len(info1) == 5:
                 temp2 = [char for char in info1]
             x = processor.exclude_b(temp1, temp2, self.word_score_dict.keys())
+            print(f'{len(x)} words left after Bs.')
             y = processor.check_g(temp1, temp2, x)
+            print(f'{len(y)} words left after Gs.')
             z = processor.check_y(temp1, temp2, y)
+            print(f'{len(z)} words left after Y.')
             z.sort()
             print(z)
 
@@ -356,8 +359,11 @@ class GUI:
             if len(info2) == 5:
                 temp2 = [char for char in info2]
             x = processor.exclude_b(temp1, temp2, z)
+            print(f'{len(x)} words left after Bs.')
             y = processor.check_g(temp1, temp2, x)
+            print(f'{len(y)} words left after Gs.')
             z = processor.check_y(temp1, temp2, y)
+            print(f'{len(z)} words left after Y.')
             z.sort()
             print(z)
 
@@ -370,8 +376,11 @@ class GUI:
             if len(info3) == 5:
                 temp2 = [char for char in info3]
             x = processor.exclude_b(temp1, temp2, z)
+            print(f'{len(x)} words left after Bs.')
             y = processor.check_g(temp1, temp2, x)
+            print(f'{len(y)} words left after Gs.')
             z = processor.check_y(temp1, temp2, y)
+            print(f'{len(z)} words left after Y.')
             z.sort()
             print(z)
 
@@ -384,8 +393,11 @@ class GUI:
             if len(info4) == 5:
                 temp2 = [char for char in info4]
             x = processor.exclude_b(temp1, temp2, z)
+            print(f'{len(x)} words left after Bs.')
             y = processor.check_g(temp1, temp2, x)
+            print(f'{len(y)} words left after Gs.')
             z = processor.check_y(temp1, temp2, y)
+            print(f'{len(z)} words left after Y.')
             z.sort()
             print(z)
 
@@ -398,8 +410,11 @@ class GUI:
             if len(info5) == 5:
                 temp2 = [char for char in info5]
             x = processor.exclude_b(temp1, temp2, z)
+            print(f'{len(x)} words left after Bs.')
             y = processor.check_g(temp1, temp2, x)
+            print(f'{len(y)} words left after Gs.')
             z = processor.check_y(temp1, temp2, y)
+            print(f'{len(z)} words left after Y.')
             z.sort()
             print(z)
 
@@ -453,4 +468,5 @@ class GUI:
     # Function to close window on click of Quit button
     def close_window(self):
         self.master.destroy()
+        plt.close('all')
         print("The application has been quit.")

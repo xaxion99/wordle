@@ -1,5 +1,7 @@
 import os
 import sys
+
+import gui
 from gui import *
 
 ########################################################################################################################
@@ -11,6 +13,7 @@ letter_counts = []
 letter_percentages = []
 slot_counts = []
 slot_percentages = []
+averages = []
 
 arr_of_letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
                   'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -150,6 +153,14 @@ if __name__ == '__main__':
     plt.suptitle("Slot Frequencies")
     plt.tight_layout()
     plt.show(block=False)
+
+    # Generate an array of all possible responses to a Wordle input
+    # processor.create_all_responses()
+    # processor.word_checker_callback(word_score_dict, words)
+
+    file_path = os.path.join(wd, 'averages.csv')
+    averages = processor.load_csv(file_path)
+    averages_dict = {words[i]: averages[i] for i in range(len(words))}
 
     # Run the main function to start the GUI
     main(words, letters, letter_counts, percentage_dict, word_score_dict)
